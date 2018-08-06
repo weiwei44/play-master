@@ -11,7 +11,9 @@
 
 class FFDecode :public IDecode{
 public:
-    virtual bool open(XParameter parameter);
+    static void initHard(void* vm);
+
+    virtual bool open(XParameter parameter,bool isHard = false);
 
     //发送数据到线程解码
     virtual bool sendPacket(XData data);

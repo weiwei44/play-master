@@ -15,9 +15,10 @@ public:
     /**
      * 打开解码器
      * @param parameter
+     * @param isHard  是否打开硬解码
      * @return
      */
-    virtual bool open(XParameter parameter) = 0;
+    virtual bool open(XParameter parameter, bool isHard = false) = 0;
 
     //发送数据到线程解码
     virtual bool sendPacket(XData data) = 0;

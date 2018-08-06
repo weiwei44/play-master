@@ -16,4 +16,9 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <order.mobile.indoorbuy.com.play_master.play.XPlay
+        android:id="@+id/play"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </android.support.constraint.ConstraintLayout>

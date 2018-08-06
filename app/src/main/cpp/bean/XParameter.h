@@ -11,7 +11,10 @@ extern "C" {
 
 class XParameter {
 public:
-  AVCodecParameters* codecParameters = 0;
+    AVCodecParameters* codecParameters = 0;
+    int channels = 2; //通道数
+    int sample_rate = 44100;  //样本率
+
 };
 
 

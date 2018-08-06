@@ -15,7 +15,6 @@ class IObserver : public XThread{
 public:
     //观察者接受数据的函数
     virtual void update(XData data){}
-
     //添加观察者
     void addObserver(IObserver* obs);
 

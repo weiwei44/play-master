@@ -7,6 +7,7 @@
 
 void IDemux::service() {
     while (!isExit){
+        //读取一帧packet
         XData data = readFrame();
         if(data.size <= 0){
             break;

@@ -4,13 +4,25 @@
 
 #include "FFDecode.h"
 #include "AndroidLog.h"
+extern "C"{
+#include <libavcodec/jni.h>
+}
 
-bool FFDecode::open(XParameter parameter) {
+void FFDecode::initHard(void *vm) {
+    av_jni_set_java_vm(vm, 0);
+}
+
+bool FFDecode::open(XParameter parameter,bool isHard) {
     if(!parameter.codecParameters)
         return false;
     AVCodecParameters* p = parameter.codecParameters;
     //1.find decoder
     AVCodec* codec = avcodec_find_decoder(p->codec_id);
+
+    if(isHard){
+        codec = avcodec_find_decoder_by_name("h264_mediacodec");
+    }
+
     if(!codec){
         LOGE("avcodec_find_decoder %d failed",p->codec_id);
         return false;
@@ -68,11 +80,17 @@ XData FFDecode::recvFrame() {
     if(codecContext->codec_type == AVMEDIA_TYPE_VIDEO) {
         //Y,U,V乘以高度
         d.size = (frame->linesize[0] + frame->linesize[1] + frame->linesize[2]) * frame->height;
+        d.width = frame->width;
+        d.height = frame->height;
         d.isAudio = false;
+
     }else if(codecContext->codec_type == AVMEDIA_TYPE_AUDIO){
         //样本字节数 * 单通道样本数 * 通道数
         d.size = av_get_bytes_per_sample((AVSampleFormat)(frame->format)) * frame->nb_samples * 2;
         d.isAudio = true;
     }
+
+    d.format = frame->format;
+    memcpy(d.datas,frame->data, sizeof(d.datas));
      return d;
 }

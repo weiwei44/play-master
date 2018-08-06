@@ -28,9 +28,9 @@ void IDecode::service() {
                 XData frame = this->recvFrame();
                 if(!frame.data)break;  //读不到数据就跳出循环
                 if(frame.isAudio){
-                    LOGE("音频帧: %d",frame.size);
+                    //LOGE("音频帧: %d",frame.size);
                 } else{
-                    LOGE("视频帧: %d",frame.size);
+                    //LOGE("视频帧: %d",frame.size);
                 }
                 this->notify(frame);
             }

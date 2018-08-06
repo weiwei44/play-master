@@ -2,13 +2,13 @@ package order.mobile.indoorbuy.com.play_master
 
 import android.Manifest
 import android.annotation.TargetApi
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.support.annotation.RequiresApi
 import com.tbruyelle.rxpermissions2.RxPermissions
-import kotlinx.android.synthetic.main.activity_main.*
 import order.mobile.indoorbuy.com.play_master.play.XPlay
 
 class MainActivity : AppCompatActivity() {
@@ -18,11 +18,13 @@ class MainActivity : AppCompatActivity() {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE//横屏
         setContentView(R.layout.activity_main)
 
         requestPermission()
-        val xpaly = XPlay()
-        xpaly.init(dirPath)
+
+        val play = findViewById<XPlay>(R.id.play)
+        play.init(dirPath)
     }
 
     /**
